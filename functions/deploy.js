@@ -1,4 +1,4 @@
-export async function onRequestPost(context) {
+export async function onRequest(context) {
     const token = context.env.GITHUB_TOKEN
 
     const res = await fetch("https://api.github.com/repos/ihsanvp/blog-web/dispatches", {
@@ -13,8 +13,13 @@ export async function onRequestPost(context) {
         }
     })
 
+    console.log("token", token)
     console.log("Trigger Build Status:", res.status)
     console.log(await res.text())
+
+    if (!res.ok) {
+        return new Response("failure")
+    }
 
     return new Response("success")
 }
