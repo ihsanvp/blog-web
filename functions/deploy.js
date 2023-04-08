@@ -1,5 +1,19 @@
 export async function onRequest(context) {
-    console.log(context)
+    const token = context.env.GITHUB_TOKEN
 
-    return new Response("ok")
+    const res = await fetch("https://api.github.com/repos/ihsanvp/blog-web/dispatches", {
+        method: "post",
+        body: {
+            event_type: "studio_deploy_trigger"
+        },
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    console.log("Trigger Build Status:", res.status)
+    console.log(await res.text())
+
+    return new Response("success")
 }

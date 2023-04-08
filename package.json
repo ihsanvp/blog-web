@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "dev:functions": "wrangler pages dev dist",
+    "dev:functions": "dotenv wrangler pages dev . --env .env",
     "start": "astro dev",
     "build:site": "astro build",
     "build:functions": "copyfiles functions/* dist/",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "copyfiles": "^2.4.1",
+    "dotenv-cli": "^7.2.1",
     "wrangler": "^2.14.0"
   }
 }
