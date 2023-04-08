@@ -1,4 +1,4 @@
-export async function onRequest(context) {
+export async function onRequestPost(context) {
     const token = context.env.GITHUB_TOKEN
 
     const res = await fetch("https://api.github.com/repos/ihsanvp/blog-web/dispatches", {
