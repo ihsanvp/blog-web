@@ -1,0 +1,103 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import sanityImageBuilder from "../lib/sanityImageBuilder";
+import { SITE_DESCRIPTION } from "../consts";
+import SanityImage from "../components/SanityImage.astro";
+
+export interface Props {
+	title: string;
+	category?: string;
+	author: {
+		image: object;
+		name: string;
+	};
+	pubDate: Date;
+	heroImage: Object;
+}
+
+const props = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={props.title} description={SITE_DESCRIPTION} />
+	</head>
+
+	<body>
+		<main>
+			<div class="container mx-auto">
+				<div
+					class="flex flex-col gap-10 items-center justify-center py-32"
+				>
+					<div class="font-medium">{props.category}</div>
+					<div class="text-6xl font-bold">{props.title}</div>
+
+					<div class="flex items-center gap-3">
+						<div class="w-12 h-12 rounded-full overflow-hidden">
+							<picture>
+								<source
+									class="w-full h-full object-cover"
+									srcset={sanityImageBuilder(
+										props.author.image
+									)
+										.format("webp")
+										.quality(80)
+										.width(50)
+										.url()}
+									type="image/webp"
+								/>
+								<img
+									class="w-full h-full object-cover"
+									class="responsive__img"
+									src={sanityImageBuilder(props.author.image)
+										.quality(80)
+										.width(50)
+										.url()}
+									alt={props.title}
+								/>
+							</picture>
+						</div>
+						<div class="text-lg">{props.author.name}</div>
+					</div>
+					<div class="text-lg text-gray-600">
+						<FormattedDate date={new Date(props.pubDate)} />
+					</div>
+				</div>
+				<article class="prose max-w-4xl mx-auto prose-xl">
+					{
+						props.heroImage && (
+							<picture>
+								<source
+									class="w-full h-full object-cover"
+									srcset={sanityImageBuilder(props.heroImage)
+										.format("webp")
+										.quality(80)
+										.width(1600)
+										.url()}
+									type="image/webp"
+								/>
+								<img
+									class="w-full h-full object-cover"
+									class="responsive__img"
+									src={sanityImageBuilder(props.heroImage)
+										.quality(80)
+										.width(1600)
+										.url()}
+									alt={props.title}
+								/>
+							</picture>
+						)
+					}
+					<br />
+					<br />
+					<slot />
+				</article>
+			</div>
+			<div class="py-20"></div>
+		</main>
+	</body>
+</html>

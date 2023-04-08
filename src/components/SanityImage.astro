@@ -1,0 +1,34 @@
+---
+import sanityImageBuilder from "../lib/sanityImageBuilder";
+
+export interface Props {
+    asset: object;
+    alt: string;
+    width?: number;
+    quality?: number;
+}
+
+const { asset, alt, width, quality } = Astro.props;
+
+const QUALITY = 70;
+const WIDTH = 720;
+---
+
+<picture>
+    <source
+        srcset={sanityImageBuilder(asset)
+            .format("webp")
+            .quality(quality || QUALITY)
+            .width(width || WIDTH)
+            .url()}
+        type="image/webp"
+    />
+    <img
+        class="responsive__img"
+        src={sanityImageBuilder(asset)
+            .quality(quality || QUALITY)
+            .width(width || WIDTH)
+            .url()}
+        alt={alt}
+    />
+</picture>

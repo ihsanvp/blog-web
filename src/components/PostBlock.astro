@@ -1,0 +1,68 @@
+---
+import type Post from "src/models/Post";
+import sanityImageBuilder from "src/lib/sanityImageBuilder";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+    post: Post;
+}
+
+const QUALITY = 70;
+const WIDTH = 600;
+
+const { post } = Astro.props;
+---
+
+<a class="flex flex-col gap-3" href={`/blog/${post.slug.current}`}>
+    <div class="w-full h-[500px]">
+        <picture>
+            <source
+                class="w-full h-full object-cover"
+                srcset={sanityImageBuilder(post.mainImage)
+                    .format("webp")
+                    .quality(QUALITY)
+                    .width(WIDTH)
+                    .url()}
+                type="image/webp"
+            />
+            <img
+                class="w-full h-full object-cover"
+                class="responsive__img"
+                src={sanityImageBuilder(post.mainImage)
+                    .quality(QUALITY)
+                    .width(WIDTH)
+                    .url()}
+                alt={post.title}
+            />
+        </picture>
+    </div>
+    <div class="text-3xl font-medium mt-3">{post.title}</div>
+    <div class="text-lg text-gray-600">
+        <FormattedDate date={new Date(post.publishedAt)} />
+    </div>
+    <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full overflow-hidden">
+            <picture>
+                <source
+                    class="w-full h-full object-cover"
+                    srcset={sanityImageBuilder(post.author.image)
+                        .format("webp")
+                        .quality(80)
+                        .width(50)
+                        .url()}
+                    type="image/webp"
+                />
+                <img
+                    class="w-full h-full object-cover"
+                    class="responsive__img"
+                    src={sanityImageBuilder(post.author.image)
+                        .quality(80)
+                        .width(50)
+                        .url()}
+                    alt={post.title}
+                />
+            </picture>
+        </div>
+        <div class="text-lg">{post.author.name}</div>
+    </div>
+</a>
