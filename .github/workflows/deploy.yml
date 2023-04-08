@@ -25,6 +25,9 @@ jobs:
           SANITY_USE_CDN: ${{ secrets.SANITY_USE_CDN }}
         run: npm run build
 
+      - name: Build Functions
+        run: npm run build:functions
+
       - name: Deploy Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:

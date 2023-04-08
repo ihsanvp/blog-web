@@ -4,8 +4,10 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:functions": "wrangler pages dev dist",
     "start": "astro dev",
     "build": "astro build",
+    "build:functions": "copyfiles functions/* dist/",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -22,6 +24,8 @@
     "vite": "^4.2.1"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9"
+    "@tailwindcss/typography": "^0.5.9",
+    "copyfiles": "^2.4.1",
+    "wrangler": "^2.14.0"
   }
 }
