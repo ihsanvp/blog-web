@@ -6,8 +6,9 @@
     "dev": "astro dev",
     "dev:functions": "wrangler pages dev dist",
     "start": "astro dev",
-    "build": "astro build",
+    "build:site": "astro build",
     "build:functions": "copyfiles functions/* dist/",
+    "build": "npm run build:site && npm run build:functions",
     "preview": "astro preview",
     "astro": "astro"
   },
