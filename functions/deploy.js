@@ -1,11 +1,11 @@
-export async function onRequest(context) {
+export async function onRequestPost(context) {
     const token = context.env.GITHUB_TOKEN
 
     const res = await fetch("https://api.github.com/repos/ihsanvp/blog-web/dispatches", {
         method: "post",
-        body: {
+        body: JSON.stringify({
             event_type: "studio_deploy_trigger"
-        },
+        }),
         headers: {
             "user-agent": "Blog",
             "content-type": "application/json",
