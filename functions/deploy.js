@@ -7,6 +7,7 @@ export async function onRequestPost(context) {
             event_type: "studio_deploy_trigger"
         },
         headers: {
+            "user-agent": "Blog",
             "content-type": "application/json",
             "Authorization": `Bearer ${token}`
         }
