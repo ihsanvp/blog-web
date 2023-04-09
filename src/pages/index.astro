@@ -7,10 +7,10 @@ const posts = await getPosts();
 ---
 
 <LandingLayout>
-	<div class="py-40">
-		<div class="text-6xl">Blog</div>
+	<div class="md:py-40 py-20">
+		<div class="text-6xl text-center">Blog</div>
 	</div>
-	<div class="grid grid-cols-2 gap-x-10 gap-y-20">
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-20">
 		{posts.map((post) => <PostBlock post={post} />)}
 	</div>
 	<div class="py-32"></div>
